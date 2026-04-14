@@ -2,7 +2,7 @@
 
 ---
 
-# ESP32-C5/6 802.15.4 High-Speed Sniffer
+# ESP32-C5/6 802.15.4 + BLE High-Speed Sniffer
 
 A high-performance **IEEE 802.15.4 packet sniffer** using **ESP32-C6** with **Wireshark PCAP output** support.
 
@@ -22,6 +22,7 @@ This project uses:
 
 * High-speed packet capture
 * 2.4 GHz IEEE 802.15.4 support
+* BLE advertisement/beacon dump mode
 * Channel hopping mode
 * Wireshark live capture support
 * RSSI + LQI metadata (via TAP header)
@@ -148,6 +149,16 @@ python sniffer.py -p /dev/ttyACM0 -w capture.pcap
 
 ---
 
+## BLE Advertisement / Beacon Dump
+
+```bash
+python sniffer.py -p /dev/ttyACM0 --ble
+```
+
+Default mode remains Zigbee / IEEE 802.15.4 (`--zbee`).
+
+---
+
 ## Live Wireshark Capture
 
 Linux/macOS:
@@ -166,12 +177,14 @@ python sniffer.py -p COM5 | Wireshark.exe -k -i -
 
 # Command Line Options
 
-| Option  | Description     |
-| ------- | --------------- |
-| `-p`    | Serial port     |
-| `-c`    | Fixed channel   |
-| `--hop` | Channel hopping |
-| `-w`    | Write PCAP file |
+| Option   | Description                           |
+| -------- | ------------------------------------- |
+| `-p`     | Serial port                           |
+| `-c`     | Fixed channel                         |
+| `--hop`  | Channel hopping                       |
+| `-w`     | Write PCAP file                       |
+| `--zbee` | Zigbee / IEEE 802.15.4 mode (default) |
+| `--ble`  | BLE advertisement / beacon dump mode  |
 
 ---
 
@@ -181,7 +194,7 @@ python sniffer.py -p COM5 | Wireshark.exe -k -i -
 
 ```
 PING
-START:C=<channel>,H=<0|1>
+START:C=<channel>,H=<0|1>,M=<ZBEE|BLE>
 STOP
 ```
 
